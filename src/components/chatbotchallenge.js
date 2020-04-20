@@ -1,4 +1,5 @@
 import authentication from '../utils/authentication'
+import
 export default {
     data: () => ({
         message: '',
@@ -29,6 +30,18 @@ export default {
             if (message.toLowerCase().startsWith(':login')) {
                 this.$modal.show('authentication')
             }
+            if (message.toLowerCase().startsWith(':register')) {
+                this.formError = ''
+                this.$modal.show('register')
+            }
+            if (message.toLowerCase().startsWith(':logout')) {
+                localStorage.token = ''
+                this.sendMessage('User logged out', 'server')
+            }
+            if (message.toLowerCase().startsWith(':balance')) {
+                this.processBalance(message)
+            }
+
         },
 
         showWelcome() {
@@ -55,6 +68,32 @@ export default {
                 })
 
             this.$modal.hide('loginForm')
+        },
+        processRegister() {
+            if (this.password === this.passwordConfirm) {
+                authentication.register({
+                    "name": this.name,
+                    "username": this.username,
+                    "email": this.email,
+                    "password": this.password
+                })
+                    .then( (response) => {
+                        this.$modal.hide('registerForm')
+                        this.sendMessage('Welcome ' + response.result + ', Now you can log in', 'server')
+                    })
+                    .catch((error) => {
+                        this.formError = error.response.data.detail
+                    })
+                return
+            }
+            this.formError = 'Password confirmation not match'
+        },
+        processBalance() {
+            let paramsArray = message.split(" ");
+            let params = {
+                'currency': paramsArray[1],
+            };
+            this.requestOrder('currency', params)
         },
 
     }

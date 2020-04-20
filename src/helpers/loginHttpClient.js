@@ -5,9 +5,8 @@ import env from '../environment/config'
  *
  * @type {{headers: {Accept: string, "Content-Type": string}, baseURL}}
  */
-console.log(process.env.VUE_APP_URL);
 const config = {
-    baseURL: process.env.VUE_APP_URL,
+    baseURL: env.apiBaseUrl,
     headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'

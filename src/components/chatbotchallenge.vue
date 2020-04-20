@@ -37,39 +37,45 @@
                 </div>
             </div>
             <modal ref="authentication" name="authentication" width="400px" height="auto" :clickToClose="false">
-                <div class="login-container">
-                    <b-card>
-                        <b-form-group
-                                id="login-group-username"
-                                label="Username:"
-                                label-for="input-username"
-                                description="We'll never share your email with anyone else."
-                        >
-                            <b-form-input
-                                    id="login-input-username"
-                                    v-model="username"
-                                    type="username"
-                                    required
-                                    placeholder="Enter username"
-                            ></b-form-input>
-                        </b-form-group>
-                        <b-form-group
-                                id="login-group-password"
-                                label="Password:"
-                                label-for="input-password">
-                            <b-form-input
-                                    id="login-input-password"
-                                    v-model="password"
-                                    type="password"
-                                    required
-                                    placeholder="Enter password"
-                                    @keyup.enter="processLogin()"
-                            ></b-form-input>
-                        </b-form-group>
-                        <b-button  @click="processLogin()" variant="success">Login</b-button>
-                    </b-card>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <h5 class="card-title col-12">
+                                Insert Data to Login
+                            </h5>
+                            <input autofocus ref="login_input_username" class="form-control col-12 mb-1" v-model="username" placeholder="Insert Username"/>
+
+                            <input autofocus ref="login_input_password" class="form-control col-12 mb-1" v-model="password" placeholder="Insert Password"
+                                   v-on:keyup.enter="processLogin()"/>
+                            <button @click="processLogin()" class="btn btn-success col-12">Login</button>
+                        </div>
+                    </div>
                 </div>
             </modal>
+
+            <modal name="register"  width="400px" height="auto" :clickToClose="false">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <h5 class="card-title col-12">
+                                Insert Data to Register
+                            </h5>
+                            <input autofocus class="form-control col-12 mb-1" v-model="name"
+                                   placeholder="Insert Name"/>
+                            <input class="form-control col-12 mb-1" v-model="username"
+                                   placeholder="Insert Username"/>
+                            <input class="form-control col-12 mb-1" type="email" v-model="email"
+                                   placeholder="Insert Email"/>
+                            <input class="form-control col-12 mb-1" type="password" v-model="password"
+                                   placeholder="Password" />
+                            <input class="form-control col-12 mb-1" type="password" v-model="passwordConfirmation"
+                                   placeholder="Confirm Password" v-on:keyup.enter="processRegister()"/>
+                            <button @click="processRegister()" class="btn btn-success col-12">Register</button>
+                        </div>
+                    </div>
+                </div>
+            </modal>
+
         </div>
     </main>
 </template>
